@@ -1,6 +1,8 @@
 package com.s0qva.todobackend.controller;
 
-import com.s0qva.todobackend.model.User;
+import com.s0qva.todobackend.dto.UserCreationDto;
+import com.s0qva.todobackend.dto.UserIdDto;
+import com.s0qva.todobackend.dto.UserReadingDto;
 import com.s0qva.todobackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,23 +28,23 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAll() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<UserReadingDto>> getAll() {
+        List<UserReadingDto> foundUsers = userService.getAllUsers();
+        return ResponseEntity.ok(foundUsers);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getOneById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserReadingDto> getOneById(@PathVariable Long id) {
+        UserReadingDto foundUser = userService.getUserById(id);
+        return ResponseEntity.ok(foundUser);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Void> save(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
+    public ResponseEntity<Void> save(@RequestBody UserCreationDto userCreationDto) {
+        UserIdDto savedUserId = userService.saveUser(userCreationDto);
         URI savedUserLocation = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedUser.getId())
+                .buildAndExpand(savedUserId.getId())
                 .toUri();
         return ResponseEntity.created(savedUserLocation)
                 .build();
