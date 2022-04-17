@@ -1,8 +1,8 @@
 package com.s0qva.todobackend.controller;
 
-import com.s0qva.todobackend.dto.UserCreationDto;
-import com.s0qva.todobackend.dto.UserIdDto;
-import com.s0qva.todobackend.dto.UserReadingDto;
+import com.s0qva.todobackend.dto.user.UserCreationDto;
+import com.s0qva.todobackend.dto.user.UserIdDto;
+import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

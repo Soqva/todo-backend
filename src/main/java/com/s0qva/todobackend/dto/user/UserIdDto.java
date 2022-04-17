@@ -1,4 +1,4 @@
-package com.s0qva.todobackend.dto;
+package com.s0qva.todobackend.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

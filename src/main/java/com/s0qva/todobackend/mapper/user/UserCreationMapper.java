@@ -1,6 +1,6 @@
-package com.s0qva.todobackend.mapper;
+package com.s0qva.todobackend.mapper.user;
 
-import com.s0qva.todobackend.dto.UserCreationDto;
+import com.s0qva.todobackend.dto.user.UserCreationDto;
 import com.s0qva.todobackend.model.User;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -10,8 +10,8 @@ import org.mapstruct.factory.Mappers;
 public interface UserCreationMapper {
     UserCreationMapper MAPPER = Mappers.getMapper(UserCreationMapper.class);
 
-    User toUser(UserCreationDto userCreationDto);
+    User mapToUser(UserCreationDto userCreationDto);
 
     @InheritInverseConfiguration
-    UserCreationDto toUserCreationDto(User user);
+    UserCreationDto mapToUserCreationDto(User user);
 }
