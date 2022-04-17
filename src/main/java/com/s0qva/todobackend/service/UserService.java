@@ -3,6 +3,7 @@ package com.s0qva.todobackend.service;
 import com.s0qva.todobackend.dto.user.UserCreationDto;
 import com.s0qva.todobackend.dto.user.UserIdDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
+import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.mapper.user.UserMapper;
 import com.s0qva.todobackend.model.User;
 import com.s0qva.todobackend.repository.UserRepository;
@@ -39,7 +40,7 @@ public class UserService {
     public UserReadingDto getUserById(Long id) {
         log.info("User with id {} is being received", id);
         User user = userRepository.findById(id)
-                .orElse(new User());
+                .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
         log.info("User was got. Found user: {}", user);
         log.info("Mapping the user to UserReadingDto");
         return userMapper.mapFromUserToUserReadingDto(user);
