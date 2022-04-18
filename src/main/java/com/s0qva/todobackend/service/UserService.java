@@ -4,6 +4,7 @@ import com.s0qva.todobackend.dto.user.UserCreationDto;
 import com.s0qva.todobackend.dto.user.UserIdDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.exception.NoSuchUserException;
+import com.s0qva.todobackend.exception.UserAlreadyExistException;
 import com.s0qva.todobackend.mapper.user.UserMapper;
 import com.s0qva.todobackend.model.User;
 import com.s0qva.todobackend.repository.UserRepository;
@@ -46,9 +47,19 @@ public class UserService {
         return userMapper.mapFromUserToUserReadingDto(user);
     }
 
+    public UserReadingDto getUserByUsername(String username) {
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new NoSuchUserException("There is no user with username = " + username));
+        return userMapper.mapFromUserToUserReadingDto(user);
+    }
+
     public UserIdDto saveUser(UserCreationDto userCreationDto) {
         log.info("Mapping the UserCreationDto to User");
         User user = userMapper.mapFromUserCreationDtoToUser(userCreationDto);
+        log.info("Checking an already existing user with username: {}", user.getUsername() );
+        userRepository.findUserByUsername(user.getUsername())
+                .orElseThrow(() -> new UserAlreadyExistException("User with username = " + user.getUsername()
+                        + " already exist"));
         log.info("User with username {} is being saved", user.getUsername());
         User savedUser = userRepository.save(user);
         log.info("The user was saved. Saved user's id: {}", savedUser.getId());
