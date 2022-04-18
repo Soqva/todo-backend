@@ -1,6 +1,7 @@
 package com.s0qva.todobackend.exception.handler;
 
 import com.s0qva.todobackend.exception.NoSuchUserException;
+import com.s0qva.todobackend.exception.SignInDataException;
 import com.s0qva.todobackend.exception.UserAlreadyExistException;
 import com.s0qva.todobackend.exception.model.IncorrectDataContainer;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({UserAlreadyExistException.class})
     public ResponseEntity<IncorrectDataContainer> handleEntityAlreadyExistException(RuntimeException exception) {
-        return buildResponseEntity(exception, HttpStatus.CONFLICT, "noSuchEntity");
+        return buildResponseEntity(exception, HttpStatus.CONFLICT, "entityAlreadyExist");
+    }
+
+    @ExceptionHandler({SignInDataException.class})
+    public ResponseEntity<IncorrectDataContainer> handleSignInException(RuntimeException exception) {
+        return buildResponseEntity(exception, HttpStatus.CONFLICT, "incorrectEmailOrPassword");
     }
 
     private ResponseEntity<IncorrectDataContainer> buildResponseEntity(Exception exception,

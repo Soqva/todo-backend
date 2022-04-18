@@ -1,11 +1,9 @@
 CREATE TABLE users
 (
     id         BIGSERIAL PRIMARY KEY,
-    username   VARCHAR(128) NOT NULL UNIQUE,
-    password   VARCHAR(512) NOT NULL,
     email      VARCHAR(128) NOT NULL UNIQUE,
-    first_name VARCHAR(64),
-    last_name  VARCHAR(64)
+    password   VARCHAR(512) NOT NULL,
+    username   VARCHAR(128)
 );
 
 CREATE TABLE category
