@@ -64,6 +64,6 @@ public class LoggingAspect {
 
     private void logException(Object methodResult) {
         ResponseEntity<IncorrectDataContainer> responseEntity = (ResponseEntity<IncorrectDataContainer>) methodResult;
-        log.info("HTTP status code: {}, errors: {}", responseEntity.getStatusCode(), responseEntity.getBody().getErrors());
+        log.error("HTTP status code: {}, errors: {}", responseEntity.getStatusCode(), responseEntity.getBody().getErrors());
     }
 }
