@@ -9,6 +9,8 @@ services:
       - '8080:8080'
     environment:
       - 'spring.datasource.url=jdbc:postgresql://database:5432/todo-app'
+      - 'spring.datasource.username=postgres'
+      - 'spring.datasource.password=postgres'
     depends_on:
       - database
   database:
