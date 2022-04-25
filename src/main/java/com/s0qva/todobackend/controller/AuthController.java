@@ -6,8 +6,8 @@ import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.dto.user.UserSignInDto;
 import com.s0qva.todobackend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +18,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin
 public class AuthController {
     private final AuthService authService;
 
