@@ -36,7 +36,7 @@ public class TaskService {
 
     public TaskReadingDto getTask(Long id){
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
+                .orElseThrow(() -> new NoSuchUserException("There is no task with id = " + id));
         return taskMapper.mapFromTaskToTaskReadingDto(task);
     }
 
