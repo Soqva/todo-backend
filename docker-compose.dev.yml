@@ -11,6 +11,7 @@ services:
       - 'spring.datasource.url=jdbc:postgresql://database:5432/todo-app'
       - 'spring.datasource.username=postgres'
       - 'spring.datasource.password=postgres'
+      - 'spring.profiles.active=dev'
     depends_on:
       - database
   database:
