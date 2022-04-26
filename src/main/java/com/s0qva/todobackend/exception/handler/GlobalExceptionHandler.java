@@ -1,5 +1,6 @@
 package com.s0qva.todobackend.exception.handler;
 
+import com.s0qva.todobackend.exception.NoSuchTaskException;
 import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.exception.SignInDataException;
 import com.s0qva.todobackend.exception.UserAlreadyExistException;
@@ -15,7 +16,10 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NoSuchUserException.class})
+    @ExceptionHandler({
+            NoSuchUserException.class,
+            NoSuchTaskException.class
+    })
     public ResponseEntity<IncorrectDataContainer> handleNoSuchEntityException(RuntimeException exception) {
         return buildResponseEntity(exception, HttpStatus.NOT_FOUND, "noSuchEntity");
     }
