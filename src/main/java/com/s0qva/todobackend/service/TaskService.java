@@ -3,6 +3,7 @@ package com.s0qva.todobackend.service;
 import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
+import com.s0qva.todobackend.exception.NoSuchTaskException;
 import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.mapper.task.TaskMapper;
 import com.s0qva.todobackend.model.Task;
@@ -36,7 +37,7 @@ public class TaskService {
 
     public TaskReadingDto getTask(Long id){
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchUserException("There is no task with id = " + id));
+                .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
         return taskMapper.mapFromTaskToTaskReadingDto(task);
     }
 

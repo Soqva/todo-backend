@@ -1,9 +1,6 @@
 package com.s0qva.todobackend.exception.handler;
 
-import com.s0qva.todobackend.exception.NoSuchTaskException;
-import com.s0qva.todobackend.exception.NoSuchUserException;
-import com.s0qva.todobackend.exception.SignInDataException;
-import com.s0qva.todobackend.exception.UserAlreadyExistException;
+import com.s0qva.todobackend.exception.*;
 import com.s0qva.todobackend.exception.model.IncorrectDataContainer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +15,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({
             NoSuchUserException.class,
-            NoSuchTaskException.class
+            NoSuchTaskException.class,
+            NoSuchCategoryException.class
     })
     public ResponseEntity<IncorrectDataContainer> handleNoSuchEntityException(RuntimeException exception) {
         return buildResponseEntity(exception, HttpStatus.NOT_FOUND, "noSuchEntity");
