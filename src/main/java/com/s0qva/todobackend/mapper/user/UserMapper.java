@@ -1,5 +1,6 @@
 package com.s0qva.todobackend.mapper.user;
 
+import com.s0qva.todobackend.dto.user.UserNameOnlyUpdatingDto;
 import com.s0qva.todobackend.dto.user.UserSignInDto;
 import com.s0qva.todobackend.dto.user.UserSignUpDto;
 import com.s0qva.todobackend.dto.user.UserIdDto;
@@ -22,4 +23,6 @@ public interface UserMapper {
     User mapFromUserIdDtoToUser(UserIdDto userIdDto);
 
     UserIdDto mapFromUserToUserIdDto(User user);
+
+    User mapFromUserNameOnlyUpdatingDtoToUser(UserNameOnlyUpdatingDto userNameOnlyUpdatingDto);
 }

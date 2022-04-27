@@ -1,5 +1,6 @@
 package com.s0qva.todobackend.mapper.user;
 
+import com.s0qva.todobackend.dto.user.UserNameOnlyUpdatingDto;
 import com.s0qva.todobackend.dto.user.UserSignInDto;
 import com.s0qva.todobackend.dto.user.UserSignUpDto;
 import com.s0qva.todobackend.dto.user.UserIdDto;
@@ -13,6 +14,7 @@ public class DefaultUserMapper implements UserMapper {
     private final UserSignInMapper userSignInMapper = UserSignInMapper.MAPPER;
     private final UserReadingMapper userReadingMapper = UserReadingMapper.MAPPER;
     private final UserIdMapper userIdMapper = UserIdMapper.MAPPER;
+    private final UserNameUpdateMapper userNameUpdateMapper = UserNameUpdateMapper.MAPPER;
 
     @Override
     public User mapFromUserSignUpDtoToUser(UserSignUpDto userSignUpDto) {
@@ -52,5 +54,10 @@ public class DefaultUserMapper implements UserMapper {
     @Override
     public UserIdDto mapFromUserToUserIdDto(User user) {
         return userIdMapper.mapToUserIdDto(user);
+    }
+
+    @Override
+    public User mapFromUserNameOnlyUpdatingDtoToUser(UserNameOnlyUpdatingDto userNameOnlyUpdatingDto) {
+        return userNameUpdateMapper.mapToUser(userNameOnlyUpdatingDto);
     }
 }
