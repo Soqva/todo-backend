@@ -21,7 +21,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, @Qualifier("defaultUserMapper") UserMapper userMapper) {
+    public UserService(UserRepository userRepository,
+                       @Qualifier("defaultUserMapper") UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
