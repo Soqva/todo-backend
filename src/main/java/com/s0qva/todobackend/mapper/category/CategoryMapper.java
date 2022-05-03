@@ -8,8 +8,6 @@ import com.s0qva.todobackend.model.Category;
 public interface CategoryMapper {
     Category mapFromCategoryCreationDtoToCategory(CategoryCreationDto categoryCreationDto);
 
-    Category mapFromCategoryReadingDtoToCategory(CategoryReadingDto categoryReadingDto);
-
     CategoryReadingDto mapFromCategoryToCategoryReadingDto(Category category);
 
     Category mapFromCategoryIdDtoToCategory(CategoryIdDto categoryIdDto);

@@ -19,11 +19,6 @@ public class DefaultCategoryMapper implements CategoryMapper{
     }
 
     @Override
-    public Category mapFromCategoryReadingDtoToCategory(CategoryReadingDto categoryReadingDto) {
-        return categoryReadingMapper.mapToCategory(categoryReadingDto);
-    }
-
-    @Override
     public CategoryReadingDto mapFromCategoryToCategoryReadingDto(Category category) {
         return categoryReadingMapper.mapToCategoryReadingDto(category);
     }

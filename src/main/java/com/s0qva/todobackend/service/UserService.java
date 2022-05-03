@@ -1,6 +1,6 @@
 package com.s0qva.todobackend.service;
 
-import com.s0qva.todobackend.dto.user.UserNameOnlyUpdatingDto;
+import com.s0qva.todobackend.dto.user.UserNameUpdatingDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.mapper.user.UserMapper;
@@ -21,7 +21,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, @Qualifier("defaultUserMapper") UserMapper userMapper) {
+    public UserService(UserRepository userRepository,
+                       @Qualifier("defaultUserMapper") UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -39,10 +40,10 @@ public class UserService {
         return userMapper.mapFromUserToUserReadingDto(user);
     }
 
-    public UserReadingDto updateUsername(Long id, UserNameOnlyUpdatingDto userNameOnlyUpdatingDto) {
+    public UserReadingDto updateUsername(Long id, UserNameUpdatingDto userNameUpdatingDto) {
         User oldUser = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
-        User newUser = userMapper.mapFromUserNameOnlyUpdatingDtoToUser(userNameOnlyUpdatingDto);
+        User newUser = userMapper.mapFromUserNameOnlyUpdatingDtoToUser(userNameUpdatingDto);
 
         oldUser.setUsername(newUser.getUsername());
         User savedUser = userRepository.save(oldUser);

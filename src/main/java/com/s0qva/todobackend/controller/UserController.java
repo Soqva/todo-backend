@@ -1,6 +1,6 @@
 package com.s0qva.todobackend.controller;
 
-import com.s0qva.todobackend.dto.user.UserNameOnlyUpdatingDto;
+import com.s0qva.todobackend.dto.user.UserNameUpdatingDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,8 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserReadingDto> updateUsername(@PathVariable Long id,
-                                                         @RequestBody UserNameOnlyUpdatingDto userNameOnlyUpdatingDto) {
-        UserReadingDto updatedUser = userService.updateUsername(id, userNameOnlyUpdatingDto);
+                                                         @RequestBody UserNameUpdatingDto userNameUpdatingDto) {
+        UserReadingDto updatedUser = userService.updateUsername(id, userNameUpdatingDto);
         return ResponseEntity.ok(updatedUser);
     }
 }

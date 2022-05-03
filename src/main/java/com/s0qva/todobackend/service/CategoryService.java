@@ -8,6 +8,7 @@ import com.s0qva.todobackend.mapper.category.CategoryMapper;
 import com.s0qva.todobackend.model.Category;
 import com.s0qva.todobackend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,8 @@ public class CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+    public CategoryService(CategoryRepository categoryRepository,
+                           @Qualifier("defaultCategoryMapper") CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
     }

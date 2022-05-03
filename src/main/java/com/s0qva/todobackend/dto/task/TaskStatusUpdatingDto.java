@@ -1,5 +1,6 @@
-package com.s0qva.todobackend.dto.user;
+package com.s0qva.todobackend.dto.task;
 
+import com.s0qva.todobackend.model.enumeration.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserNameOnlyUpdatingDto {
-    private String username;
+public class TaskStatusUpdatingDto {
+    private TaskStatus status;
 }

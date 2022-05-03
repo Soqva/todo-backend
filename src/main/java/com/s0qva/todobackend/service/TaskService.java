@@ -4,11 +4,11 @@ import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
 import com.s0qva.todobackend.exception.NoSuchTaskException;
-import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.mapper.task.TaskMapper;
 import com.s0qva.todobackend.model.Task;
 import com.s0qva.todobackend.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,8 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
+    public TaskService(TaskRepository taskRepository,
+                       @Qualifier("defaultTaskMapper") TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
     }
