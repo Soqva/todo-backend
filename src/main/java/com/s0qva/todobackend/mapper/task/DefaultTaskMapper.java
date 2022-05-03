@@ -20,11 +20,6 @@ public class DefaultTaskMapper implements TaskMapper {
     }
 
     @Override
-    public Task mapFromTaskReadingDtoToTask(TaskReadingDto taskReadingDto) {
-        return taskReadingMapper.mapToTask(taskReadingDto);
-    }
-
-    @Override
     public TaskReadingDto mapFromTaskToTaskReadingDto(Task task) {
         return taskReadingMapper.mapToTaskReadingDto(task);
     }

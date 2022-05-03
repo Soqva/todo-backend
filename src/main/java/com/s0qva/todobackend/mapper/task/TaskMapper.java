@@ -9,8 +9,6 @@ import com.s0qva.todobackend.model.Task;
 public interface TaskMapper {
     Task mapFromTaskCreationDtoToTask(TaskCreationDto taskCreationDto);
 
-    Task mapFromTaskReadingDtoToTask(TaskReadingDto taskReadingDto);
-
     TaskReadingDto mapFromTaskToTaskReadingDto(Task task);
 
     Task mapFromTaskIdDtoToTask(TaskIdDto taskIdDto);

@@ -1,7 +1,6 @@
 package com.s0qva.todobackend.mapper.user;
 
 import com.s0qva.todobackend.dto.user.UserNameUpdatingDto;
-import com.s0qva.todobackend.dto.user.UserSignInDto;
 import com.s0qva.todobackend.dto.user.UserSignUpDto;
 import com.s0qva.todobackend.dto.user.UserIdDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultUserMapper implements UserMapper {
     private final UserSignUpMapper userSignUpMapper = UserSignUpMapper.MAPPER;
-    private final UserSignInMapper userSignInMapper = UserSignInMapper.MAPPER;
     private final UserReadingMapper userReadingMapper = UserReadingMapper.MAPPER;
     private final UserIdMapper userIdMapper = UserIdMapper.MAPPER;
     private final UserNameUpdateMapper userNameUpdateMapper = UserNameUpdateMapper.MAPPER;
@@ -19,26 +17,6 @@ public class DefaultUserMapper implements UserMapper {
     @Override
     public User mapFromUserSignUpDtoToUser(UserSignUpDto userSignUpDto) {
         return userSignUpMapper.mapToUser(userSignUpDto);
-    }
-
-    @Override
-    public UserSignUpDto mapFromUserToUserSignUpDto(User user) {
-        return userSignUpMapper.mapToUserSignUpDto(user);
-    }
-
-    @Override
-    public User mapFromUserSignInDtoToUser(UserSignInDto userSignInDto) {
-        return userSignInMapper.mapToUser(userSignInDto);
-    }
-
-    @Override
-    public UserSignInDto mapFromUserToUserSignInDto(User user) {
-        return userSignInMapper.mapToUserSignInDto(user);
-    }
-
-    @Override
-    public User mapFromUserReadingDtoToUser(UserReadingDto userReadingDto) {
-        return userReadingMapper.mapToUser(userReadingDto);
     }
 
     @Override
