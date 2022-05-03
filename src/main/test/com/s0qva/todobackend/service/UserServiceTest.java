@@ -63,8 +63,8 @@ public class UserServiceTest {
     @Test
     void itShouldReturnUserAsUserReadingDtoByItsId() {
         Long id = 1L;
-        User foundUser = new User(id, null, null, null);
-        UserReadingDto expectedResult = new UserReadingDto(id, null, null);
+        User foundUser = new User(id, null, null, null, null);
+        UserReadingDto expectedResult = new UserReadingDto(id, null, null, null);
 
         when(userRepository.findById(id)).thenReturn(Optional.of(foundUser));
         when(userMapper.mapFromUserToUserReadingDto(foundUser)).thenReturn(expectedResult);
