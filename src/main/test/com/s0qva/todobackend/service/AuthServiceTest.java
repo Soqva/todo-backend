@@ -44,8 +44,8 @@ public class AuthServiceTest {
         String email = "email@email.com";
         String password = "password";
         UserSignUpDto receivedSignUpDto = new UserSignUpDto(email, password);
-        User userBeforeSave = new User(null, email, password, null);
-        User userAfterSave = new User(id, email, password, null);
+        User userBeforeSave = new User(null, email, password, null, null);
+        User userAfterSave = new User(id, email, password, null, null);
         UserIdDto expectResult = new UserIdDto(id);
 
         when(userRepository.findUserByEmail(email)).thenReturn(Optional.empty());
@@ -69,7 +69,7 @@ public class AuthServiceTest {
         String password = "password";
         String expectedExceptionMessage = "User with email = " + email + " already exist";
         UserSignUpDto receivedSignUpDto = new UserSignUpDto(email, password);
-        User existingUser = new User(null, email, password, null);
+        User existingUser = new User(null, email, password, null, null);
 
         when(userRepository.findUserByEmail(email)).thenReturn(Optional.of(existingUser));
 
@@ -89,8 +89,8 @@ public class AuthServiceTest {
         String email = "email@email.com";
         String password = "password";
         UserSignInDto receivedSignInDto = new UserSignInDto(email, password);
-        User user = new User(id, email, password, null);
-        UserReadingDto expectedResult = new UserReadingDto(id, email, null);
+        User user = new User(id, email, password, null, null);
+        UserReadingDto expectedResult = new UserReadingDto(id, email, null, null);
 
         when(userRepository.findUserByEmailAndPassword(email, password)).thenReturn(Optional.of(user));
         when(userMapper.mapFromUserToUserReadingDto(user)).thenReturn(expectedResult);
