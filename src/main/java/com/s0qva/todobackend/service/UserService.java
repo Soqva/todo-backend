@@ -1,6 +1,6 @@
 package com.s0qva.todobackend.service;
 
-import com.s0qva.todobackend.dto.user.UserNameUpdatingDto;
+import com.s0qva.todobackend.dto.user.UserPartUpdatingDto;
 import com.s0qva.todobackend.dto.user.UserReadingDto;
 import com.s0qva.todobackend.exception.NoSuchUserException;
 import com.s0qva.todobackend.mapper.user.UserMapper;
@@ -35,19 +35,37 @@ public class UserService {
     }
 
     public UserReadingDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
+        User user = getUserByIdOrElseThrow(id);
         return userMapper.mapFromUserToUserReadingDto(user);
     }
 
-    public UserReadingDto updateUsername(Long id, UserNameUpdatingDto userNameUpdatingDto) {
-        User oldUser = userRepository.findById(id)
+    public UserReadingDto patchUser(Long id, UserPartUpdatingDto userPartUpdatingDto) {
+        User oldUser = getUserByIdOrElseThrow(id);
+        User newUser = userMapper.mapFromUserPartUpdatingDtoToUser(userPartUpdatingDto);
+
+        replaceExistingUser(oldUser, newUser);
+
+        User updatedUser = userRepository.save(oldUser);
+        return userMapper.mapFromUserToUserReadingDto(updatedUser);
+    }
+
+    private void replaceExistingUser(User oldUser, User newUser) {
+        if (newUser.getUsername() != null) {
+            oldUser.setUsername(newUser.getUsername());
+        }
+        if (newUser.getEmail() != null) {
+            oldUser.setEmail(newUser.getEmail());
+        }
+        if (newUser.getPassword() != null) {
+            oldUser.setPassword(newUser.getPassword());
+        }
+        if (!newUser.getCategories().isEmpty()) {
+            oldUser.setCategories(newUser.getCategories());
+        }
+    }
+
+    private User getUserByIdOrElseThrow(Long id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
-        User newUser = userMapper.mapFromUserNameOnlyUpdatingDtoToUser(userNameUpdatingDto);
-
-        oldUser.setUsername(newUser.getUsername());
-        User savedUser = userRepository.save(oldUser);
-
-        return userMapper.mapFromUserToUserReadingDto(savedUser);
     }
 }

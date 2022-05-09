@@ -37,8 +37,7 @@ public class CategoryService {
     }
 
     public CategoryReadingDto getCategory(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new NoSuchCategoryException("There is no category with id = " + id));
+        Category category = getCategoryByIdOrElseThrow(id);
         return categoryMapper.mapFromCategoryToCategoryReadingDto(category);
     }
 
@@ -46,5 +45,10 @@ public class CategoryService {
         Category category = categoryMapper.mapFromCategoryCreationDtoToCategory(categoryCreationDto);
         Category savedCategory = categoryRepository.save(category);
         return categoryMapper.mapFromCategoryToCategoryIdDto(savedCategory);
+    }
+
+    private Category getCategoryByIdOrElseThrow(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NoSuchCategoryException("There is no category with id = " + id));
     }
 }

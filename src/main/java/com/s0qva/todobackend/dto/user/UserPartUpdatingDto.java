@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserNameUpdatingDto {
+public class UserPartUpdatingDto {
     private String username;
+    private String email;
+    private String password;
 }
