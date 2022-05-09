@@ -37,8 +37,7 @@ public class TaskService {
     }
 
     public TaskReadingDto getTask(Long id){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
+        Task task = getTaskByIdOrElseThrow(id);
         return taskMapper.mapFromTaskToTaskReadingDto(task);
     }
 
@@ -46,5 +45,10 @@ public class TaskService {
         Task task = taskMapper.mapFromTaskCreationDtoToTask(taskCreationDto);
         Task savedTask = taskRepository.save(task);
         return taskMapper.mapFromTaskToTaskIdDto(savedTask);
+    }
+
+    private Task getTaskByIdOrElseThrow(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
     }
 }

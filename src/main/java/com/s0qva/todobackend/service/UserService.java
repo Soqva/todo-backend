@@ -35,8 +35,7 @@ public class UserService {
     }
 
     public UserReadingDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
+        User user = getUserByIdOrElseThrow(id);
         return userMapper.mapFromUserToUserReadingDto(user);
     }
 
