@@ -47,6 +47,21 @@ public class TaskService {
         return taskMapper.mapFromTaskToTaskIdDto(savedTask);
     }
 
+    private void replaceExistingTask(Task oldTask, Task newTask) {
+        if (newTask.getEndDate() != null) {
+            oldTask.setEndDate(newTask.getEndDate());
+        }
+        if (newTask.getTitle() != null) {
+            oldTask.setTitle(newTask.getTitle());
+        }
+        if (newTask.getDescription() != null) {
+            oldTask.setDescription(oldTask.getDescription());
+        }
+        if (newTask.getStatus() != null) {
+            oldTask.setStatus(newTask.getStatus());
+        }
+    }
+
     private Task getTaskByIdOrElseThrow(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
