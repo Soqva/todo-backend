@@ -1,6 +1,5 @@
-package com.s0qva.todobackend.dto.task;
+package com.s0qva.todobackend.dto.category;
 
-import com.s0qva.todobackend.model.enumeration.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TaskStatusUpdatingDto {
-    private TaskStatus status;
+public class CategoryPartUpdatingDto {
+    private String title;
 }

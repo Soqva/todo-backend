@@ -2,8 +2,8 @@ package com.s0qva.todobackend.mapper.task;
 
 import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
+import com.s0qva.todobackend.dto.task.TaskPartUpdatingDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
-import com.s0qva.todobackend.dto.task.TaskStatusUpdatingDto;
 import com.s0qva.todobackend.model.Task;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ public class DefaultTaskMapper implements TaskMapper {
     private final TaskCreationMapper taskCreationMapper = TaskCreationMapper.MAPPER;
     private final TaskReadingMapper taskReadingMapper = TaskReadingMapper.MAPPER;
     private final TaskIdMapper taskIdMapper = TaskIdMapper.MAPPER;
-    private final TaskStatusUpdateMapper taskStatusUpdateMapper = TaskStatusUpdateMapper.MAPPER;
+    private final TaskPartUpdatingMapper taskPartUpdatingMapper = TaskPartUpdatingMapper.MAPPER;
 
     @Override
     public Task mapFromTaskCreationDtoToTask(TaskCreationDto taskCreationDto) {
@@ -35,7 +35,7 @@ public class DefaultTaskMapper implements TaskMapper {
     }
 
     @Override
-    public Task mapFromTaskStatusUpdatingDtoToTask(TaskStatusUpdatingDto taskStatusUpdatingDto) {
-        return taskStatusUpdateMapper.mapToTask(taskStatusUpdatingDto);
+    public Task mapFromTaskPartUpdatingDtoToTask(TaskPartUpdatingDto taskPartUpdatingDto) {
+        return taskPartUpdatingMapper.mapToTask(taskPartUpdatingDto);
     }
 }
