@@ -2,8 +2,8 @@ package com.s0qva.todobackend.mapper.task;
 
 import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
+import com.s0qva.todobackend.dto.task.TaskPartUpdatingDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
-import com.s0qva.todobackend.dto.task.TaskStatusUpdatingDto;
 import com.s0qva.todobackend.model.Task;
 
 public interface TaskMapper {
@@ -15,5 +15,5 @@ public interface TaskMapper {
 
     TaskIdDto mapFromTaskToTaskIdDto(Task task);
 
-    Task mapFromTaskStatusUpdatingDtoToTask(TaskStatusUpdatingDto taskStatusUpdatingDto);
+    Task mapFromTaskPartUpdatingDtoToTask(TaskPartUpdatingDto taskPartUpdatingDto);
 }

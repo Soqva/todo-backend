@@ -6,10 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TaskStatusUpdatingDto {
+public class TaskPartUpdatingDto {
+    private LocalDate endDate;
+    private String title;
+    private String description;
     private TaskStatus status;
 }
