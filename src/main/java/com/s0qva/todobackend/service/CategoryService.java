@@ -47,6 +47,12 @@ public class CategoryService {
         return categoryMapper.mapFromCategoryToCategoryIdDto(savedCategory);
     }
 
+    private void replaceExistingCategory(Category oldCategory, Category newCategory) {
+        if (newCategory.getTitle() != null) {
+            oldCategory.setTitle(newCategory.getTitle());
+        }
+    }
+
     private Category getCategoryByIdOrElseThrow(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new NoSuchCategoryException("There is no category with id = " + id));
