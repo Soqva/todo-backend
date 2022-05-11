@@ -1,7 +1,10 @@
 package com.s0qva.todobackend.controller;
 
+import com.s0qva.todobackend.dto.category.CategoryPartUpdatingDto;
+import com.s0qva.todobackend.dto.category.CategoryReadingDto;
 import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
+import com.s0qva.todobackend.dto.task.TaskPartUpdatingDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
 import com.s0qva.todobackend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +47,12 @@ public class TaskController {
                 .toUri();
         return ResponseEntity.created(savedTaskLocation)
                 .build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TaskReadingDto> patch(@PathVariable Long id,
+                                                @RequestBody TaskPartUpdatingDto taskPartUpdatingDto) {
+        TaskReadingDto updatedTask = taskService.patchTask(id, taskPartUpdatingDto);
+        return ResponseEntity.ok(updatedTask);
     }
 }
