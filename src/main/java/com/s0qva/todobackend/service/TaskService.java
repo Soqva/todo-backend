@@ -2,6 +2,7 @@ package com.s0qva.todobackend.service;
 
 import com.s0qva.todobackend.dto.task.TaskCreationDto;
 import com.s0qva.todobackend.dto.task.TaskIdDto;
+import com.s0qva.todobackend.dto.task.TaskPartUpdatingDto;
 import com.s0qva.todobackend.dto.task.TaskReadingDto;
 import com.s0qva.todobackend.exception.NoSuchTaskException;
 import com.s0qva.todobackend.mapper.task.TaskMapper;
@@ -47,6 +48,15 @@ public class TaskService {
         return taskMapper.mapFromTaskToTaskIdDto(savedTask);
     }
 
+    public TaskReadingDto patchTask(Long id, TaskPartUpdatingDto taskPartUpdatingDto){
+        Task oldTask = getTaskByIdOrElseThrow(id);
+        Task newTask = taskMapper.mapFromTaskPartUpdatingDtoToTask(taskPartUpdatingDto);
+
+        replaceExistingTask(oldTask, newTask);
+        Task updatedTask = taskRepository.save(oldTask);
+        return taskMapper.mapFromTaskToTaskReadingDto(updatedTask);
+    }
+
     private void replaceExistingTask(Task oldTask, Task newTask) {
         if (newTask.getEndDate() != null) {
             oldTask.setEndDate(newTask.getEndDate());
@@ -61,6 +71,7 @@ public class TaskService {
             oldTask.setStatus(newTask.getStatus());
         }
     }
+
 
     private Task getTaskByIdOrElseThrow(Long id) {
         return taskRepository.findById(id)
