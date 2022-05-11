@@ -65,13 +65,12 @@ public class TaskService {
             oldTask.setTitle(newTask.getTitle());
         }
         if (newTask.getDescription() != null) {
-            oldTask.setDescription(oldTask.getDescription());
+            oldTask.setDescription(newTask.getDescription());
         }
         if (newTask.getStatus() != null) {
             oldTask.setStatus(newTask.getStatus());
         }
     }
-
 
     private Task getTaskByIdOrElseThrow(Long id) {
         return taskRepository.findById(id)

@@ -51,7 +51,7 @@ public class TaskController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<TaskReadingDto> patch(@PathVariable Long id,
-                                                    @RequestBody TaskPartUpdatingDto taskPartUpdatingDto) {
+                                                @RequestBody TaskPartUpdatingDto taskPartUpdatingDto) {
         TaskReadingDto updatedTask = taskService.patchTask(id, taskPartUpdatingDto);
         return ResponseEntity.ok(updatedTask);
     }
