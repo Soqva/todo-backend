@@ -2,6 +2,7 @@ package com.s0qva.todobackend.service;
 
 import com.s0qva.todobackend.dto.category.CategoryCreationDto;
 import com.s0qva.todobackend.dto.category.CategoryIdDto;
+import com.s0qva.todobackend.dto.category.CategoryPartUpdatingDto;
 import com.s0qva.todobackend.dto.category.CategoryReadingDto;
 import com.s0qva.todobackend.exception.NoSuchCategoryException;
 import com.s0qva.todobackend.mapper.category.CategoryMapper;
@@ -45,6 +46,16 @@ public class CategoryService {
         Category category = categoryMapper.mapFromCategoryCreationDtoToCategory(categoryCreationDto);
         Category savedCategory = categoryRepository.save(category);
         return categoryMapper.mapFromCategoryToCategoryIdDto(savedCategory);
+    }
+
+    public CategoryReadingDto patchCategory(Long id, CategoryPartUpdatingDto categoryPartUpdatingDto) {
+        Category oldCategory = getCategoryByIdOrElseThrow(id);
+        Category newCategory = categoryMapper.mapFromCategoryPartUpdatingDtoToCategory(categoryPartUpdatingDto);
+
+        replaceExistingCategory(oldCategory, newCategory);
+
+        Category updatedCategory = categoryRepository.save(oldCategory);
+        return categoryMapper.mapFromCategoryToCategoryReadingDto(updatedCategory);
     }
 
     private void replaceExistingCategory(Category oldCategory, Category newCategory) {
