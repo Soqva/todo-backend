@@ -16,4 +16,4 @@ RUN ["./mvnw", "package"]
 
 FROM openjdk:11-jre-slim as production
 COPY --from=build /app/target/todo-backend-*.jar /todo-backend.jar
-CMD ["sh", "-c", "java -Dserver.port=$PORT $JAVA_OPTS -jar /todo-backend.jar"]
+CMD ["sh", "-c", "java -Dserver.port=$PORT $JAVA_OPTS -Dspring.profiles.active=prod -jar /todo-backend.jar"]
