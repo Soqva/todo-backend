@@ -1,9 +1,16 @@
 package com.s0qva.todobackend.exception.handler;
 
-import com.s0qva.todobackend.exception.*;
+import com.s0qva.todobackend.exception.NoSuchCategoryException;
+import com.s0qva.todobackend.exception.NoSuchTaskException;
+import com.s0qva.todobackend.exception.NoSuchUserException;
+import com.s0qva.todobackend.exception.SignInDataException;
+import com.s0qva.todobackend.exception.UserAlreadyExistException;
 import com.s0qva.todobackend.exception.model.IncorrectDataContainer;
+import com.sun.istack.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -18,25 +25,51 @@ public class GlobalExceptionHandler {
             NoSuchTaskException.class,
             NoSuchCategoryException.class
     })
-    public ResponseEntity<IncorrectDataContainer> handleNoSuchEntityException(RuntimeException exception) {
+    public ResponseEntity<IncorrectDataContainer> handleNoSuchEntity(RuntimeException exception) {
         return buildResponseEntity(exception, HttpStatus.NOT_FOUND, "noSuchEntity");
     }
 
     @ExceptionHandler({UserAlreadyExistException.class})
-    public ResponseEntity<IncorrectDataContainer> handleEntityAlreadyExistException(RuntimeException exception) {
+    public ResponseEntity<IncorrectDataContainer> handleEntityAlreadyExist(RuntimeException exception) {
         return buildResponseEntity(exception, HttpStatus.CONFLICT, "entityAlreadyExist");
     }
 
     @ExceptionHandler({SignInDataException.class})
-    public ResponseEntity<IncorrectDataContainer> handleSignInException(RuntimeException exception) {
+    public ResponseEntity<IncorrectDataContainer> handleSignIn(RuntimeException exception) {
         return buildResponseEntity(exception, HttpStatus.CONFLICT, "incorrectEmailOrPassword");
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<IncorrectDataContainer> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        return buildResponseEntity(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    private ResponseEntity<IncorrectDataContainer> buildResponseEntity(Exception exception,
+                                                                       HttpStatus httpStatus) {
+        return buildResponseEntity(exception, httpStatus, null);
     }
 
     private ResponseEntity<IncorrectDataContainer> buildResponseEntity(Exception exception,
                                                                        HttpStatus httpStatus,
                                                                        String errorKey) {
-        Map<String, String> exceptions = new HashMap<>();
-        exceptions.put(errorKey, exception.getMessage());
-        return new ResponseEntity<>(new IncorrectDataContainer(exceptions), httpStatus);
+        Map<String, String> errors = buildMapWithErrors(exception, errorKey);
+        return new ResponseEntity<>(new IncorrectDataContainer(errors), httpStatus);
     }
+
+    private Map<String, String> buildMapWithErrors(Exception exception, @Nullable String errorKey) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (exception instanceof MethodArgumentNotValidException) {
+            MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) exception;
+
+            for (FieldError error : methodArgumentNotValidException.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return errors;
+        }
+
+        errors.put(errorKey, exception.getMessage());
+        return errors;
+    }
+
 }
