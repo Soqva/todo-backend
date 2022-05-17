@@ -58,6 +58,11 @@ public class CategoryService {
         return categoryMapper.mapFromCategoryToCategoryReadingDto(updatedCategory);
     }
 
+    public void deleteCategoryById(Long id) {
+        Category existingCategory = getCategoryByIdOrElseThrow(id);
+        categoryRepository.delete(existingCategory);
+    }
+
     private void replaceExistingCategory(Category oldCategory, Category newCategory) {
         if (newCategory.getTitle() != null) {
             oldCategory.setTitle(newCategory.getTitle());
