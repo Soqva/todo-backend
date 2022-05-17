@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CategoryCreationDto {
     @NotBlank(message = "title must not be blank")
+    @Size(max = 128, message = "title must be less than {max}")
     private String title;
 
     @Valid
