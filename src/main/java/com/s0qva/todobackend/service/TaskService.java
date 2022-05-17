@@ -57,6 +57,11 @@ public class TaskService {
         return taskMapper.mapFromTaskToTaskReadingDto(updatedTask);
     }
 
+    public void deleteTaskById(Long id) {
+        Task existingTask = getTaskByIdOrElseThrow(id);
+        taskRepository.delete(existingTask);
+    }
+
     private void replaceExistingTask(Task oldTask, Task newTask) {
         if (newTask.getEndDate() != null) {
             oldTask.setEndDate(newTask.getEndDate());
@@ -74,6 +79,6 @@ public class TaskService {
 
     private Task getTaskByIdOrElseThrow(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
+                .orElseThrow(() -> new NoSuchTaskException("there is no task with id = " + id));
     }
 }

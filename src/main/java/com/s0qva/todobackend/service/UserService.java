@@ -66,6 +66,6 @@ public class UserService {
 
     private User getUserByIdOrElseThrow(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchUserException("There is no user with id = " + id));
+                .orElseThrow(() -> new NoSuchUserException("there is no user with id = " + id));
     }
 }

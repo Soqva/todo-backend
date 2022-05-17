@@ -58,6 +58,11 @@ public class CategoryService {
         return categoryMapper.mapFromCategoryToCategoryReadingDto(updatedCategory);
     }
 
+    public void deleteCategoryById(Long id) {
+        Category existingCategory = getCategoryByIdOrElseThrow(id);
+        categoryRepository.delete(existingCategory);
+    }
+
     private void replaceExistingCategory(Category oldCategory, Category newCategory) {
         if (newCategory.getTitle() != null) {
             oldCategory.setTitle(newCategory.getTitle());
@@ -66,6 +71,6 @@ public class CategoryService {
 
     private Category getCategoryByIdOrElseThrow(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new NoSuchCategoryException("There is no category with id = " + id));
+                .orElseThrow(() -> new NoSuchCategoryException("there is no category with id = " + id));
     }
 }

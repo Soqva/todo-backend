@@ -30,7 +30,7 @@ public class AuthService {
     public UserIdDto signUp(UserSignUpDto userSignUpDto) {
         userRepository.findUserByEmail(userSignUpDto.getEmail())
                 .ifPresent(user -> {
-                    throw new UserAlreadyExistException("User with email = " + user.getEmail() + " already exist");
+                    throw new UserAlreadyExistException("user with email = " + user.getEmail() + " already exist");
                 });
         User user = userMapper.mapFromUserSignUpDtoToUser(userSignUpDto);
         User savedUser = userRepository.save(user);
@@ -39,7 +39,7 @@ public class AuthService {
 
     public UserReadingDto signIn(UserSignInDto userSignInDto) {
         User user = userRepository.findUserByEmailAndPassword(userSignInDto.getEmail(), userSignInDto.getPassword())
-                .orElseThrow(() -> new SignInDataException("Email or password is incorrect"));
+                .orElseThrow(() -> new SignInDataException("email or password is incorrect"));
         return userMapper.mapFromUserToUserReadingDto(user);
     }
 }
