@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<UserReadingDto> signIn(@RequestBody UserSignInDto userSignInDto) {
+    public ResponseEntity<UserReadingDto> signIn(@Valid @RequestBody UserSignInDto userSignInDto) {
         UserReadingDto foundUser = authService.signIn(userSignInDto);
         return ResponseEntity.ok(foundUser);
     }
