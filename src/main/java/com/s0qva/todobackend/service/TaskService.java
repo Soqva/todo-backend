@@ -79,6 +79,6 @@ public class TaskService {
 
     private Task getTaskByIdOrElseThrow(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchTaskException("There is no task with id = " + id));
+                .orElseThrow(() -> new NoSuchTaskException("there is no task with id = " + id));
     }
 }
