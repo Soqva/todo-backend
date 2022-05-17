@@ -57,6 +57,11 @@ public class TaskService {
         return taskMapper.mapFromTaskToTaskReadingDto(updatedTask);
     }
 
+    public void deleteTaskById(Long id) {
+        Task existingTask = getTaskByIdOrElseThrow(id);
+        taskRepository.delete(existingTask);
+    }
+
     private void replaceExistingTask(Task oldTask, Task newTask) {
         if (newTask.getEndDate() != null) {
             oldTask.setEndDate(newTask.getEndDate());

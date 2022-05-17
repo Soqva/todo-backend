@@ -56,4 +56,10 @@ public class TaskController {
         TaskReadingDto updatedTask = taskService.patchTask(id, taskPartUpdatingDto);
         return ResponseEntity.ok(updatedTask);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        taskService.deleteTaskById(id);
+        return ResponseEntity.ok().build();
+    }
 }
