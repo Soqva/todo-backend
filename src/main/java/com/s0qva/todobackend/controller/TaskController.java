@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody TaskCreationDto taskCreationDto){
+    public ResponseEntity<Void> save(@Valid @RequestBody TaskCreationDto taskCreationDto){
         TaskIdDto savedTaskId = taskService.saveTask(taskCreationDto);
         URI savedTaskLocation = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
