@@ -26,6 +26,8 @@ import static org.mockito.Mockito.when;
         MockitoExtension.class
 })
 public class UserServiceTest {
+    private static final Long ID = 1L;
+
     private UserService userService;
     @Mock
     private UserRepository userRepository;
@@ -62,36 +64,34 @@ public class UserServiceTest {
 
     @Test
     void itShouldReturnUserAsUserReadingDtoByItsId() {
-        Long id = 1L;
-        User foundUser = new User(id, null, null, null, null);
-        UserReadingDto expectedResult = new UserReadingDto(id, null, null, null);
+        User foundUser = new User(ID, null, null, null, null);
+        UserReadingDto expectedResult = new UserReadingDto(ID, null, null, null);
 
-        when(userRepository.findById(id)).thenReturn(Optional.of(foundUser));
+        when(userRepository.findById(ID)).thenReturn(Optional.of(foundUser));
         when(userMapper.mapFromUserToUserReadingDto(foundUser)).thenReturn(expectedResult);
 
-        UserReadingDto actualResult = userService.getUserById(id);
+        UserReadingDto actualResult = userService.getUserById(ID);
 
         assertThat(actualResult).isEqualTo(expectedResult)
-                .hasFieldOrPropertyWithValue("id", id);
+                .hasFieldOrPropertyWithValue("id", ID);
 
-        verify(userRepository, times(1)).findById(id);
+        verify(userRepository, times(1)).findById(ID);
         verify(userMapper, times(1)).mapFromUserToUserReadingDto(foundUser);
     }
 
     @Test
     void itShouldThrowNoSuchUserExceptionWhenUserWithReceivedIdDoNotExist() {
-        Long id = 1L;
-        String expectedExceptionMessage = "There is no user with id = " + id;
+        String expectedExceptionMessage = "there is no user with id = " + ID;
 
-        when(userRepository.findById(id)).thenReturn(Optional.empty());
+        when(userRepository.findById(ID)).thenReturn(Optional.empty());
 
         NoSuchUserException actualException = assertThrows(NoSuchUserException.class,
-                () -> userService.getUserById(id));
+                () -> userService.getUserById(ID));
 
         assertThat(actualException)
                 .isInstanceOf(NoSuchUserException.class)
                 .hasMessage(expectedExceptionMessage);
 
-        verify(userRepository, times(1)).findById(id);
+        verify(userRepository, times(1)).findById(ID);
     }
 }
