@@ -27,6 +27,10 @@ import static org.mockito.Mockito.when;
         MockitoExtension.class
 })
 public class AuthServiceTest {
+    private static final Long ID = 1L;
+    private static final String EMAIL = "email@email.com";
+    private static final String PASSWORD = "password";
+
     private AuthService authService;
     @Mock
     private UserRepository userRepository;
@@ -40,15 +44,12 @@ public class AuthServiceTest {
 
     @Test
     void itShouldReturnUserIdDtoWhenSignUpSuccessfullyCompleted() {
-        Long id = 1L;
-        String email = "email@email.com";
-        String password = "password";
-        UserSignUpDto receivedSignUpDto = new UserSignUpDto(email, password);
-        User userBeforeSave = new User(null, email, password, null, null);
-        User userAfterSave = new User(id, email, password, null, null);
-        UserIdDto expectResult = new UserIdDto(id);
+        UserSignUpDto receivedSignUpDto = new UserSignUpDto(EMAIL, PASSWORD);
+        User userBeforeSave = new User(null, EMAIL, PASSWORD, null, null);
+        User userAfterSave = new User(ID, EMAIL, PASSWORD, null, null);
+        UserIdDto expectResult = new UserIdDto(ID);
 
-        when(userRepository.findUserByEmail(email)).thenReturn(Optional.empty());
+        when(userRepository.findUserByEmail(EMAIL)).thenReturn(Optional.empty());
         when(userMapper.mapFromUserSignUpDtoToUser(receivedSignUpDto)).thenReturn(userBeforeSave);
         when(userRepository.save(userBeforeSave)).thenReturn(userAfterSave);
         when(userMapper.mapFromUserToUserIdDto(userAfterSave)).thenReturn(expectResult);
@@ -57,7 +58,7 @@ public class AuthServiceTest {
 
         assertThat(actualResult).isEqualTo(expectResult);
 
-        verify(userRepository, times(1)).findUserByEmail(email);
+        verify(userRepository, times(1)).findUserByEmail(EMAIL);
         verify(userRepository, times(1)).save(userBeforeSave);
         verify(userMapper, times(1)).mapFromUserSignUpDtoToUser(receivedSignUpDto);
         verify(userMapper, times(1)).mapFromUserToUserIdDto(userAfterSave);
@@ -65,13 +66,11 @@ public class AuthServiceTest {
 
     @Test
     void itShouldThrowUserAlreadyExistExceptionWhenUserWithReceivedEmailAlreadyExistDuringSignUp() {
-        String email = "email@email.com";
-        String password = "password";
-        String expectedExceptionMessage = "User with email = " + email + " already exist";
-        UserSignUpDto receivedSignUpDto = new UserSignUpDto(email, password);
-        User existingUser = new User(null, email, password, null, null);
+        String expectedExceptionMessage = "user with email = " + EMAIL + " already exist";
+        UserSignUpDto receivedSignUpDto = new UserSignUpDto(EMAIL, PASSWORD);
+        User existingUser = new User(null, EMAIL, PASSWORD, null, null);
 
-        when(userRepository.findUserByEmail(email)).thenReturn(Optional.of(existingUser));
+        when(userRepository.findUserByEmail(EMAIL)).thenReturn(Optional.of(existingUser));
 
         UserAlreadyExistException actualException = assertThrows(UserAlreadyExistException.class,
                 () -> authService.signUp(receivedSignUpDto));
@@ -80,37 +79,32 @@ public class AuthServiceTest {
                 .isInstanceOf(UserAlreadyExistException.class)
                 .hasMessage(expectedExceptionMessage);
 
-        verify(userRepository, times(1)).findUserByEmail(email);
+        verify(userRepository, times(1)).findUserByEmail(EMAIL);
     }
 
     @Test
     void itShouldReturnUserReadingDtoWhenSignInSuccessfullyCompleted() {
-        Long id = 1L;
-        String email = "email@email.com";
-        String password = "password";
-        UserSignInDto receivedSignInDto = new UserSignInDto(email, password);
-        User user = new User(id, email, password, null, null);
-        UserReadingDto expectedResult = new UserReadingDto(id, email, null, null);
+        UserSignInDto receivedSignInDto = new UserSignInDto(EMAIL, PASSWORD);
+        User user = new User(ID, EMAIL, PASSWORD, null, null);
+        UserReadingDto expectedResult = new UserReadingDto(ID, EMAIL, null, null);
 
-        when(userRepository.findUserByEmailAndPassword(email, password)).thenReturn(Optional.of(user));
+        when(userRepository.findUserByEmailAndPassword(EMAIL, PASSWORD)).thenReturn(Optional.of(user));
         when(userMapper.mapFromUserToUserReadingDto(user)).thenReturn(expectedResult);
 
         UserReadingDto actualResult = authService.signIn(receivedSignInDto);
 
         assertThat(actualResult).isEqualTo(expectedResult);
 
-        verify(userRepository, times(1)).findUserByEmailAndPassword(email, password);
+        verify(userRepository, times(1)).findUserByEmailAndPassword(EMAIL, PASSWORD);
         verify(userMapper, times(1)).mapFromUserToUserReadingDto(user);
     }
 
     @Test
     void itShouldThrowSignInDataExceptionWhenUserWithReceivedEmailAndPasswordDoesNotExist() {
-        String email = "email@email.com";
-        String password = "password";
-        String expectedExceptionMessage = "Email or password is incorrect";
-        UserSignInDto receivedSignInDto = new UserSignInDto(email, password);
+        String expectedExceptionMessage = "email or password is incorrect";
+        UserSignInDto receivedSignInDto = new UserSignInDto(EMAIL, PASSWORD);
 
-        when(userRepository.findUserByEmailAndPassword(email, password)).thenReturn(Optional.empty());
+        when(userRepository.findUserByEmailAndPassword(EMAIL, PASSWORD)).thenReturn(Optional.empty());
 
         SignInDataException actualException = assertThrows(SignInDataException.class,
                 () -> authService.signIn(receivedSignInDto));
@@ -119,6 +113,6 @@ public class AuthServiceTest {
                 .isInstanceOf(SignInDataException.class)
                 .hasMessage(expectedExceptionMessage);
 
-        verify(userRepository, times(1)).findUserByEmailAndPassword(email, password);
+        verify(userRepository, times(1)).findUserByEmailAndPassword(EMAIL, PASSWORD);
     }
 }
