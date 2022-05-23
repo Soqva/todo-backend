@@ -3,7 +3,7 @@ CREATE TABLE users
     id       BIGSERIAL PRIMARY KEY,
     email    VARCHAR(128) NOT NULL UNIQUE,
     password VARCHAR(512) NOT NULL,
-    username VARCHAR(128)
+    username VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE category
