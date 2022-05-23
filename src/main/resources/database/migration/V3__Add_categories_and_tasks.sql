@@ -8,4 +8,4 @@ VALUES (current_timestamp, 'The first task', 'The first task`s description', 'CR
        (current_timestamp, 'The second task', null, 'CREATED', 1),
        (current_timestamp, 'The third task', 'The third task`s description', 'CREATED', 2),
        (current_timestamp, 'The fourth task', 'The fourth task`s description', 'COMPLETED', 2),
-       (current_timestamp, 'The fifth task', null, 'IN_PROGRESS', 3);
+       (current_timestamp, 'The fifth task', null, 'COMPLETED', 3);
