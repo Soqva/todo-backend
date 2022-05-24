@@ -23,7 +23,7 @@ public class LoggingAspect {
     @Pointcut("execution(* com.s0qva.todobackend.mapper.*.*.*(..))")
     private void allMapperMethods() {}
 
-    @Pointcut("execution(* com.s0qva.todobackend.exception.handler.GlobalExceptionHandler.*(RuntimeException))")
+    @Pointcut("execution(* com.s0qva.todobackend.exception.handler.GlobalExceptionHandler.*(..))")
     private void exceptionHandlerHandleMethods() {}
 
     @Around("allControllerMethods()")
