@@ -109,6 +109,7 @@
 					<user>${FLYWAY_USER}</user>
 					<password>${FLYWAY_PASSWORD}</password>
 					<locations>
+						<location>classpath:database/migration</location>
 						<location>filesystem:src/main/resources/database/migration</location>
 					</locations>
 				</configuration>
