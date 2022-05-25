@@ -105,11 +105,11 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>8.5.11</version>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/todo-app</url>
-					<user>postgres</user>
-					<password>postgres</password>
+					<url>${FLYWAY_URL}</url>
+					<user>${FLYWAY_USER}</user>
+					<password>${FLYWAY_PASSWORD}</password>
 					<locations>
-						<location>classpath:database/migration</location>
+						<location>filesystem:src/main/resources/database/migration</location>
 					</locations>
 				</configuration>
 			</plugin>
