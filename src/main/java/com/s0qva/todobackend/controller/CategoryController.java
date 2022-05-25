@@ -58,7 +58,7 @@ public class CategoryController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<CategoryReadingDto> patch(@PathVariable Long id,
-                                                    @RequestBody CategoryPartUpdatingDto categoryPartUpdatingDto) {
+                                                    @Valid @RequestBody CategoryPartUpdatingDto categoryPartUpdatingDto) {
         CategoryReadingDto updatedCategory = categoryService.patchCategory(id, categoryPartUpdatingDto);
         return ResponseEntity.ok(updatedCategory);
     }
